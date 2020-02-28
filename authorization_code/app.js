@@ -15,14 +15,11 @@ var cookieParser = require('cookie-parser');
 
 require('dotenv').config();
 
-// express.use(express.json()) // body parser
-
-var client_id = process.env.CLIENT_ID; // Your client id - 8ba7e2a1ad094e9aa064bf9952fcf760 // 'CLIENT_ID'
-var client_secret = process.env.CLIENT_SECRET; // Your secret - 0aa4cc28398f478faf8c4c90a60f5834 // 'CLIENT_SECRET'
-var redirect_uri = process.env.REDIRECT_URI; // 'http://localhost:8888/callback/' // 'REDIRECT_URI'; // Your redirect uri 
-const frontend_uri = process.env.FRONTEND_URI
+var client_id = process.env.CLIENT_ID;
+var client_secret = process.env.CLIENT_SECRET;
+var redirect_uri = process.env.REDIRECT_URI; // http://localhost:8888/callback/
+const frontend_uri = process.env.FRONTEND_URI // http://localhost:3000
 const PORT = process.env.PORT || 8888;
-// let FRONTEND_URI = process.env.FRONTEND_URI || 'http://localhost:3000';
 
 /**
  * Generates a random string containing numbers and letters
@@ -58,10 +55,10 @@ app.get('/login', function(req, res) {
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
-      client_id: client_id, // client_id
-      scope: scope, // scope
-      redirect_uri: redirect_uri, // redirect_uri
-      state: state // state
+      client_id: client_id,
+      scope: scope,
+      redirect_uri: redirect_uri,
+      state: state
     }));
 });
 
@@ -89,7 +86,7 @@ app.get('/callback', function(req, res) {
         grant_type: 'authorization_code'
       },
       headers: {
-        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) // client_id
+        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
       },
       json: true
     };
@@ -150,7 +147,6 @@ app.get('/refresh_token', function(req, res) {
     }
   });
 });
-
 
 console.log(`Listening on ${PORT}`);
 app.listen(PORT);
