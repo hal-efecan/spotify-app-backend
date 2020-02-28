@@ -17,9 +17,9 @@ require('dotenv').config();
 
 var client_id = process.env.CLIENT_ID;
 var client_secret = process.env.CLIENT_SECRET;
-var redirect_uri = process.env.REDIRECT_URI; // http://localhost:8888/callback/
-const frontend_uri = process.env.FRONTEND_URI // http://localhost:3000
-const PORT = process.env.PORT || 8888;
+let redirect_uri = process.env.REDIRECT_URI || 'http://localhost:8888/callback'
+let frontend_uri = process.env.FRONTEND_URI || 'http://localhost:3000'
+let PORT = process.env.PORT || 8888;
 
 /**
  * Generates a random string containing numbers and letters
@@ -37,6 +37,15 @@ var generateRandomString = function(length) {
 };
 
 var stateKey = 'spotify_auth_state';
+
+if(process.env.NODE_ENV !== 'production') {
+    redirect_uri = 'http://localhost:8888/callback'
+    frontend_uri = 'http://localhost:3000'
+  }
+
+console.log(`Running in ${process.env.NODE_ENV} mode`) 
+console.log(`frontend_uri`, frontend_uri)
+console.log(`redirect_uri`, redirect_uri)
 
 var app = express();
 
