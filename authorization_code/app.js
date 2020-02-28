@@ -17,8 +17,8 @@ require('dotenv').config();
 
 var client_id = process.env.CLIENT_ID;
 var client_secret = process.env.CLIENT_SECRET;
-let redirect_uri = process.env.REDIRECT_URI || 'http://localhost:8888/callback'
-let frontend_uri = process.env.FRONTEND_URI || 'http://localhost:3000'
+let redirect_uri = process.env.REDIRECT_URI // || 'http://localhost:8888/callback'
+let frontend_uri = process.env.FRONTEND_URI // || 'http://localhost:3000'
 let PORT = process.env.PORT || 8888;
 
 /**
